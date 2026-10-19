@@ -93,5 +93,5 @@ Conventions: dates are absolute (YYYY-MM-DD, Arabia Standard Time). "Agent work"
 
 - Agent work: reviewed the 12 existing Markdown documents for version control; no evaluation scripts, datasets, model outputs, or completed experimental results are present in this workspace.
 - Added `README.md` as a document index and `.gitignore` to exclude credentials, local environments, research datasets, model weights, and derived working files.
-- Prepared the project for a private GitHub repository under the local authenticated account `1Baleid`, named `ai-hallucination-res299`, with `main` as the initial branch.
+- Prepared the project for a private GitHub repository under the local authenticated account `1Baleid`, named `ai-hallucination-res201`, with `main` as the initial branch. The repository name was corrected from RES299 to RES201 at the student's request; the local Git remote was updated accordingly.
 - This session changes repository packaging only; no model inference, data processing, or compute spending was performed.
