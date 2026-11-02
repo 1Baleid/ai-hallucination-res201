@@ -1,0 +1,24 @@
+# Python packages for the RunPod pod, installed by pod/setup_pod.sh into /workspace/venv
+# (a virtual environment with --system-site-packages, so it reuses the template's torch).
+#
+# torch is NOT installed from this file. transformers 5.22.1 declares "torch>=2.6" (its "torch"
+# extra, importlib.metadata.requires("transformers")) and Requires-Python ">=3.11", so the RunPod
+# PyTorch template must provide Python >= 3.11, torch >= 2.6 and torchvision (the Qwen image
+# processor uses the torchvision backend). setup_pod.sh checks both and pins the installed torch
+# and torchvision with a constraints file while it installs the lines below.
+#
+# Pinned to the versions tested with the pod code on 2026-11-02 (CPU, project venv):
+transformers==5.22.1
+accelerate==1.15.0
+huggingface_hub==2.4.0
+tokenizers==0.23.3
+safetensors==0.8.0
+# Chat templates, images, arrays (ranges from transformers' own requirements):
+jinja2>=3.1.0
+pillow>=10.0.1,<=15.0
+numpy>=1.26
+# MedSigLIP's SigLIP tokenizer is SentencePiece-based and transformers requires protobuf for it
+# (neither is installed in the local venv, so this pair is untested here):
+sentencepiece>=0.2.0
+protobuf>=4.25
+# Not needed: qwen-vl-utils (images are passed to the processor directly as PIL images).

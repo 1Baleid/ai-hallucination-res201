@@ -1,0 +1,15 @@
+# NIH ChestX-ray14 images that received model or detector outputs during software tests on 2026-11-02,
+# before the protocol freeze. They are excluded from item selection (every arm and the dev pool).
+# Qwen3-VL-2B CPU probe (results/probes/qwen3vl2b_cpu_probe_2026-11-02.jsonl) and pod runner real check:
+00000652_003.png
+00000433_000.png
+00000001_000.png
+# MedSigLIP CPU check through pod/run_medsiglip.py:
+00000258_000.png
+00000502_006.png
+00000800_000.png
+00001068_002.png
+00001205_008.png
+00001276_000.png
+00001301_018.png
+00001320_004.png

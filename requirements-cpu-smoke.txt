@@ -1,0 +1,9 @@
+# Optional: CPU-only model stack for local smoke tests of the pod runner (no GPU needed).
+#   .venv\Scripts\python -m pip install -r requirements-cpu-smoke.txt
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchvision
+transformers>=4.57
+accelerate>=1.0
+sentencepiece>=0.2.0
+protobuf>=4.25

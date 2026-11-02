@@ -1,6 +1,8 @@
 # Day 0 email drafts (2026-10-12, revised after the ethics review)
 
-Three drafts for the student to check, complete the `[...]` fields, and send. Keep each short; the recipients are busy. Send order: instructor and advisor tonight; IRB request at 08:00 on 2026-10-13 with the advisor in copy, before any notebook runs; log the send time in `PROTOCOL.md` section 10.
+**2026-11-02: the student dropped all advisor contact. Section 2 (advisor email) is not sent, and the IRB email no longer copies or names the advisor as PI of record. Dates are on hold; update them before sending.**
+
+Three drafts for the student to check, complete the `[...]` fields, and send. Keep each short; the recipients are busy. Send order: instructor email first; IRB request before any notebook runs, without an advisor copy; log the send time in `PROTOCOL.md` section 10.
 
 ---
 
@@ -25,7 +27,7 @@ Kind regards,
 
 ---
 
-## 2. To the advisor (Dr. Muzammil Behzad)
+## 2. To the advisor (Dr. Muzammil Behzad): DROPPED on 2026-11-02, do not send
 
 Subject: RES 201: Stage 1 scope for your sign-off and five short questions
 
@@ -50,17 +52,17 @@ Kind regards,
 
 ---
 
-## 3. To the KFUPM IRB (IRB@kfupm.edu.sa), send 2026-10-13 08:00, cc muzammil.behzad@kfupm.edu.sa
+## 3. To the KFUPM IRB (IRB@kfupm.edu.sa), send before any notebook runs (no cc)
 
-Subject: Request for determination: secondary analysis of public de-identified chest radiographs (RES 201 undergraduate research; supervisor and PI of record Dr. Muzammil Behzad)
+Subject: Request for determination: secondary analysis of public de-identified chest radiographs (RES 201 undergraduate research)
 
 Dear IRB Office,
 
-I am [NAME], [ID], an undergraduate in the Information and Computer Science department, enrolled in RES 201 under Dr. Muzammil Behzad (ICS; JRCAI project "Evaluating VLMs/LLMs Hallucination in Domain-Specific Tasks" [umbrella IRB number if known: ...]), who is in copy as supervisor and PI of record. I am writing to request a determination that the activity below is not research on a human subject within the meaning of the Law of Ethics of Research on Living Creatures or, if the office considers it in scope, expedited review under the NCBE Implementing Regulations (v3), Article 10.19 (minimal risk; previously collected, non-identifying records), with exemption from periodic follow-up under Article 10.33 (publicly available, non-identifying data).
+I am [NAME], [ID], an undergraduate in the Information and Computer Science department, enrolled in RES 201 under Dr. Muzammil Behzad (ICS; JRCAI project "Evaluating VLMs/LLMs Hallucination in Domain-Specific Tasks" [umbrella IRB number if known: ...]). I am writing to request a determination that the activity below is not research on a human subject within the meaning of the Law of Ethics of Research on Living Creatures or, if the office considers it in scope, expedited review under the NCBE Implementing Regulations (v3), Article 10.19 (minimal risk; previously collected, non-identifying records), with exemption from periodic follow-up under Article 10.33 (publicly available, non-identifying data).
 
 Activity: secondary analysis of two public, de-identified chest radiograph datasets released by their custodians for research: NIH ChestX-ray14 (NIH Clinical Center, 2017) and the image-level labels of the RANZCR CLiP dataset (Kaggle, 2021; Tang et al., Scientific Data 2021). The work consists of (a) matching the two public releases of the same radiographs by image content, which is the only linkage in the study, (b) automated inference by open vision-language models on these images, (c) my own non-clinical reading of a few hundred images to check the presence of a medical device against the published labels, and (d) statistical analysis. No patients are contacted, no identifiable information exists in either release or is created, no re-identification is attempted, no clinical decisions are involved, and no new data are collected from human participants in this stage. A later stage may use the same public images to fine-tune models, and may involve a short blinded reading by a lab member; I will inform the office before any such session.
 
-Planned start: 13 October 2026, automated analysis of public de-identified images only, under my supervisor's responsibility. My own reading sessions will pause if the office objects.
+Planned start: [DATE], automated analysis of public de-identified images only. My own reading sessions will pause if the office objects.
 
 Data handling: images and labels are used under their published terms; no label files are redistributed; model inference runs on a rented cloud machine that holds only the public NIH images and prompt text.
 
@@ -68,7 +70,7 @@ Attached: a one-page protocol summary. I registered for the NCBE research-ethics
 
 Kind regards,
 [NAME], [ID], [EMAIL], [PHONE]
-Supervisor and PI of record: Dr. Muzammil Behzad, muzammil.behzad@kfupm.edu.sa
+Course supervisor: Dr. Muzammil Behzad
 
 ---
 
@@ -76,5 +78,4 @@ Notes for the student
 - Fill every `[...]` field; keep the questions at five.
 - Attach to the IRB email the one-page summary in `drafts/irb_protocol_summary.md` after completing its `[...]` fields.
 - Register on ncbeportal.kacst.gov.sa tonight; complete the course on Days 1-3 so the certificate exists before the Day-4 reading.
-- If the advisor replies that the umbrella project has an IRB number, forward that reply to the IRB office as a follow-up rather than withdrawing the request.
 - Record the send time of the IRB email in `PROTOCOL.md` section 10 and in `PROGRESS.md`.

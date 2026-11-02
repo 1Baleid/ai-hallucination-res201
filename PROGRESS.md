@@ -95,3 +95,129 @@ Conventions: dates are absolute (YYYY-MM-DD, Arabia Standard Time). "Agent work"
 - Added `README.md` as a document index and `.gitignore` to exclude credentials, local environments, research datasets, model weights, and derived working files.
 - Prepared the project for a private GitHub repository under the local authenticated account `1Baleid`, named `ai-hallucination-res201`, with `main` as the initial branch. The repository name was corrected from RES299 to RES201 at the student's request; the local Git remote was updated accordingly.
 - This session changes repository packaging only; no model inference, data processing, or compute spending was performed.
+
+## 2026-11-02 (Monday): execution starts; code build; first real-data calibration
+
+### Decisions and changes (what, why)
+- Status at the start of the day: planning only. Nothing had been executed in October, so the plan's October calendar lapsed. The repository had been pushed to the private GitHub repo `1Baleid/ai-hallucination-res201` on 2026-10-20.
+- Student decision: "ignore dates for now, focus on finishing it". Calendar dates in `STAGE1_PLAN.md` are on hold; the day order still holds.
+- Student decision: no contact with the advisor. Removed the advisor email, the advisor copy and PI-of-record naming on the IRB request, the draft review, the citation memo and any lab rater (`STAGE1_PLAN.md` Day 0, 8, 9 and section 7; `PROTOCOL.md` sections 10 and 11; `drafts/`).
+- Clarification recorded in `PROTOCOL.md` section 11: the H5 shuffled-expert permutation p is one-sided (real-expert gain compared with permuted-expert gains).
+
+### Done (agent work)
+- Checked this machine: Python 3.13, no GPU, no Kaggle or Hugging Face credentials, an empty RunPod key. Created the project environment `.venv` with the analysis stack and a CPU model stack (torch 2.15 CPU, transformers 5.22.1); versions in `docs/venv_freeze_2026-11-02.txt`; requirement files `requirements-local.txt` and `requirements-cpu-smoke.txt`.
+- Wrote the code contract `docs/PIPELINE_SPEC.md` (layout, data schemas, function signatures, data-boundary and wording rules) and the fixed inputs `cxrdev/constants.py` and `cxrdev/prompts.json` (prompt strings from PROTOCOL v0.3).
+- Launched the build workflow (run id wf_3868cc12-a66): core statistics library, Kaggle kernels and image matching, item selection, analysis and tables, GPU-pod runner, blind-reading tool, and drafts of report Sections 1 to 4, Appendix B and the OSF text. Results are recorded below when it finishes.
+- Wrote `docs/HUMAN_STEPS.md` (Kaggle, Hugging Face, RunPod, blind reading; no advisor steps) and `scripts/build_report.py` (assembles the report, fills result placeholders, merges bibliographies, checks wording) with 5 passing tests.
+- Obtained public NIH ChestX-ray14 data without any login, stored in the git-ignored `data/` folder: the first image archive from NIH's Box (4,999 PNGs, 1,335 patients) and the metadata file `Data_Entry_2017_v2020.csv` from a public Hugging Face mirror (112,120 rows, 30,805 patients; 67,310 PA and 44,810 AP). The Google Cloud copy of the dataset needs authentication and was not used.
+
+### Results and numbers
+- NIH original image sizes: 10,471 distinct sizes; 8,882 sizes occur only once, so the size key alone identifies those images; the largest size group holds 37,153 images, which the perceptual hash must separate.
+- Matching calibration on real radiographs (300 trials, 150 patients with two or more films; a simulated RANZCR copy made by resizing the NIH image to its original size and saving it as JPEG; 256-bit perceptual hash):
+
+| Measure | JPEG quality 95 | JPEG quality 75 |
+|---|---|---|
+| Copy to its own source, median / max distance (bits) | 0 / 4 | 0 / 6 |
+| Copy to the same patient's nearest other film, min distance | 44 | 44 |
+| Copy to the nearest of 200 unrelated films, min distance | 62 | 60 |
+| Smallest margin, sibling minus source | 44 | 42 |
+
+  The planned margin rule (16 bits) has wide headroom on real films, so sibling films of the same patient are not a practical source of mismatches. Caveat: the real RANZCR conversion settings are unknown; the matching kernel recalibrates on the real data.
+
+- Real-model probe on this laptop's CPU (Qwen3-VL-2B-Instruct, revision 89644892, bf16, transformers 5.22.1; two real NIH radiographs, one AP and one PA, plus no-image rows; log and script in `results/probes/`). This is a feasibility check, not a study result:
+
+| Check | Outcome |
+|---|---|
+| Visual tokens for a 1024x1024 X-ray with min = max pixels = 1,048,576 | exactly 1,024 (grid 1 x 64 x 64) on both images |
+| Yes/No surface forms | all twelve forms are single tokens |
+| First-word mass on Yes/No, plain prompt (P0) | 1.00 on both images (coverage check passes) |
+| Same, "I don't know" prompt (P1) | 0.999 on both images |
+| Same, penalty prompt (P2hi) | 0.79 and 0.63; the rest moves to "I" (the start of "I don't know") |
+| Answers | parsed cleanly ("No" / "no" on both images under all prompts) |
+| No-image row, plain prompt | answered "Yes" with P(yes) 0.68, the prior the blind rows are meant to expose |
+| CPU time | about 5 to 6.5 minutes per image question in bf16, so the study must run on the rented GPU |
+
+### Money and compute used
+- $0. Local CPU only.
+
+### Explainer video (same day, at the student's request)
+- Made a narrated plain-language explainer video of the project, `docs/video/project_explainer.mp4` (about 8.4 minutes, 1080p, English subtitles and four chapters: the project, where we are now, is it tangible?, what's next), with the subtitles also as `docs/video/project_explainer.srt`. The content is the two plain-language status messages from this session (project summary, status, the student's steps, the tangibility assessment with its weaknesses and realistic expectations).
+- Built by `docs/video/make_explainer.py` (Pillow frames, the offline Windows voice "Microsoft Zira Desktop", ffmpeg); rerun it to regenerate after edits. It shows one real NIH film (`00000065_000.png`); the tube in the "tube in / tube out" scene is drawn on for illustration and labelled as such.
+- $0; local CPU only.
+
+### Kaggle access (same day; student step 1 of `docs/HUMAN_STEPS.md` done)
+- The student accepted the RANZCR CLiP competition rules (Kaggle reports `userHasEntered = True`) and created a new-style API token, saved by the agent as `C:\Users\messi\.kaggle\access_token` (outside the repository). Checked with the Kaggle tool: the competition file list loads.
+- The live Rules text (copied by the student 2026-11-02) matches the archived quotes in `PROTOCOL.md` section 9 word for word ("DATA ACCESS AND USE", 7.A, 7.B); section 9 updated. Two clauses noted for the report: A.2 forbids human rating of the competition's test set (we use train images only), and A.3 asks for sponsor approval of public communications about participation in the competition (this study is research use of the data, not a competition entry; noted as a limitation, no action).
+
+### Code build results (agent work, continued)
+- The build workflow (wf_3868cc12-a66) was interrupted by a restart of the agent session; six builders had finished, and two follow-up agents finished the analysis and pod-runner work. Every module now has its own passing tests:
+
+| Part | What it does | Tests |
+|---|---|---|
+| Core library (`cxrdev/prompts.py`, `parse.py`, `logits.py`, `stats.py`, `fileio.py`) | prompt strings, answer parser, first-word yes/no signal, Wilson and clustered bootstrap intervals, McNemar, Holm, kappa, AUROC, power | 145 passed |
+| Kaggle side (`cxrdev/imghash.py`, `matching.py`, `ranzcr.py`, `nih.py`, `kaggle_kernels/`) | perceptual hashing, RANZCR-to-NIH matching, three private CPU kernels and their bundler | 89 passed |
+| Item selection (`cxrdev/items.py`, `scripts/select_items.py`) | pairs, unpaired negatives, dev pool, opaque ids, pod list, reading lists | 67 passed |
+| Analysis (`cxrdev/metrics.py`, `hypotheses.py`, `arm1.py`, `tables.py`, `figures.py`, `scripts/`) | metrics, H0/H1/H3/H5, detector-gated answers and controls, Tables 1-3, Figure 1, end-to-end synthetic dry run | 77 passed |
+| GPU-pod runner (`pod/`) | model runs with cached first-word signal, MedSigLIP scores, setup and queue scripts, README | 93 passed, 1 opt-in skipped |
+| Reading tool (`tools/`) and `docs/ETT_reference_sheet.md` | blind reading and retest with saved fingerprints | 94 passed |
+| Report drafts | Sections 1-4, Appendix B, `osf/preregistration.md`, bibliography | wording and citation checks pass |
+
+- Whole suite after the follow-up work: 569 passed. The full-size analysis (9,999 resamples and permutations, two models) takes about 2 minutes on this laptop.
+- The pod runner was run for real on this CPU through its own command line on one NIH image: 1,024 visual tokens, answer "No", first-word yes/no coverage 0.99998, same token ids as the probe.
+- Decision (PROTOCOL v0.4, before any data exist): every tube-present image is read (360 reads instead of 270) and images whose only airway tube is a tracheostomy are excluded, because the RANZCR CLiP descriptor says tracheostomy tubes were labelled "ETT normal". It adds about 45 minutes to the student's reading. Smaller v0.4 clarifications: 256-bit hash wording, the dimension-key rule, six yes/no word forms, one primary endpoint for the optional general-vs-medical test, when the clustered abstention test applies, and the unpaired arm staying at 60 + 60.
+- Running at the time of writing: an integration agent (cross-module fixes and an end-to-end run on real NIH images with simulated RANZCR copies) and a report reviewer (consistency of the drafts with the protocol and code, bibliography keys).
+
+### Hugging Face access (same day; student step 2 of `docs/HUMAN_STEPS.md` done)
+- The student accepted the Health AI Developer Foundations terms on `google/medgemma-1.5-4b-it` and `google/medsiglip-448` and created a read token (`res201`, account Baleid); the agent saved it with `hf auth login` to `C:\Users\messi\.cache\huggingface\token` (outside the repository). Access check passed on both gated models.
+
+### RunPod access (same day; student step 3 of `docs/HUMAN_STEPS.md` partly done)
+- The student added credit (balance $10.11, auto-pay off) and created an API key (`res201`, read/write); the agent saved it in `C:\Users\messi\.runpod\config.toml` (outside the repository) and checked it with a read-only API query. Spend rate $0/h. One old pod from 2026-07-30 (`incredible_azure_bee`, stopped, no GPU, no volume) exists on the account; left untouched. The 50 GB network volume is deliberately not created yet (it bills about $3.50 per month while idle); the agent creates it when the GPU runs are ready, and the SSH key is added then.
+
+### OSF preregistration skipped (same day; student decision)
+- The student asked why the OSF registration was needed. Answer given: it is optional (not a course requirement); it only adds credibility by time-stamping the plan before results. The student chose to skip it.
+- Replacement: the protocol is frozen by a dated git commit before any model output. Report Section 4.9 is now "Pre-specification" and says the study was not publicly preregistered (a TODO holds the freeze commit hash and date). In the report "registered" became "pre-specified"; in `PROTOCOL.md`, `STAGE1_PLAN.md` and code comments "registered" now means "fixed in the protocol before any model output" (`PROTOCOL.md` section 11).
+- Files changed: `PROTOCOL.md` (status line, section 6 and 8 headings, cut-decision wording, data-terms line, new section 11 entry), `STAGE1_PLAN.md` (Day 1 OSF account and Day 2 registration removed; Day 2 ends with the freeze commit), `STRATEGY.md`, `HANDOFF.md`, `docs/HUMAN_STEPS.md` (step 2b removed), `docs/PIPELINE_SPEC.md`, report Sections 3 and 4, `kaggle_kernels/README.md`, and comments in `cxrdev/items.py`, `scripts/select_items.py`, `scripts/e2e_real_nih.py`, `tests/test_items.py`, `results/probes/probe_seen_filenames.txt`. `osf/preregistration.md` moved to `drafts/osf_preregistration_unused.md` with a "not used" note.
+- Explainer video: point 3 ("the plan is publicly time-stamped on OSF") replaced by "the plan is locked before any results"; `docs/video/project_explainer.mp4` and `.srt` regenerated.
+- Unchanged: the 11 probe-seen NIH images stay excluded, so no study item has a model output before the freeze.
+- Checks: `tests/test_items.py` and `tests/test_build_report.py` pass.
+- Next (agent): the protocol-freeze commit, then the Kaggle image-matching run. Nothing waits on the student until the blind reading.
+- Money: $0.
+
+### Kaggle hash run (same day; agent work, first real-data compute)
+- Private kernel `abdullahbaleid/res201-hash`, pushed from the bundle built by `kaggle_kernels/build_kernels.py` (copy of the pushed bundle in the git-ignored `data/kaggle/pushed/`); outputs in the git-ignored `data/kaggle/res201-hash/`.
+
+| Measure | Result |
+|---|---|
+| NIH images hashed (256-bit pHash and dHash) | 112,120 of 112,120, 0 errors, all 12 folders |
+| Run time | 28 minutes on 4 CPU cores (Kaggle's Python 3.13.15, pandas 2.3.3, numpy 2.1.3) |
+| RANZCR JPEG sizes found among NIH original sizes | 200 of 200 sampled (share 1.0); median 21,961 NIH candidates per size, so the hash does the real separation |
+| Yield table | identical to the local count (30,083 images, 3,255 patients, 753 patients with both ETT states) |
+
+- The size test confirms the descriptor's statement that RANZCR enlarged each NIH image to its original resolution, so the size key is used in matching.
+- Software checks on real NIH images and the real gated models (CPU, this laptop): MedGemma 1.5's processor gives exactly 256 image tokens per X-ray, single-token yes/no forms and the right end-of-turn token; MedSigLIP scored 8 NIH films through `pod/run_medsiglip.py` (about 40 s per image on CPU; it needed `sentencepiece` and `protobuf` locally, which the pod requirements already list). These 8 images and the 3 Qwen probe images are excluded from the study (`results/probes/probe_seen_filenames.txt`).
+- Money: $0 (Kaggle CPU is free).
+
+### Integration and end-to-end test on real NIH images (same day; agent work)
+- An integration agent closed the gaps between modules and applied the v0.4 decisions in code: all A images read (360), tracheostomy-flagged A images excluded before any disagreement check, the 11 test-touched NIH images excluded through `select_items.py --exclude-filenames`, H1 using the substitute contrast under every rung, H3 clustered whenever a patient has two pairs, a practice list of 10 dev images for the reading tool, strict JSON outputs, and a MedSigLIP precision column. Details: `docs/PIPELINE_SPEC.md` section 7.
+- End-to-end run on real data (`scripts/e2e_real_nih.py`, write-up `docs/E2E_REAL_NIH.md`): 1,510 real NIH PNGs from 400 patients, 595 simulated RANZCR copies (resized to each image's real original size, JPEG quality 95), 30 of them with no source in the set; bundled Kaggle kernels run locally, then item selection, simulated model outputs, verification, analysis and report build.
+
+| Check | Result |
+|---|---|
+| Matching accuracy | 565 of 565 copies matched to the right NIH file; 0 wrong; 30 of 30 sourceless copies unmatched |
+| Distance to the true source (256 bits) | 0 to 12 bits (median 2) |
+| Distance for sourceless copies | 46 to 120 bits (median 80); automatic cut 29 bits |
+| Margin to the second candidate | at least 44 bits |
+| NCC of true matches | 0.9967 to 0.99999; the tie-break was never needed |
+| Downstream | tables, figures and report built; the 3 tracheostomy-flagged A images excluded for that reason, not as disagreements; no RANZCR id, read id, item id or filename in the results |
+
+- Report fixes: the U-items paragraph now describes the substitute contrast with its own counts; the Kaggle rules-check and gated-terms dates (2 November 2026) filled in; the analysis writes all four U-stratum counts so the report resolves under either design.
+- Whole test suite: 595 passed (including the real-NIH end-to-end test).
+- Money: $0.
+- Next (agent, after the student's go-ahead): the dated lock-in commit and push to the private GitHub repo, then the Kaggle matching run, item selection, image export, and the GPU runs.
+
+### Meeting-briefing video (same day, at the student's request)
+- Made a second narrated video, `docs/video/advisor_briefing.mp4` (about 7.5 minutes, 1080p, English subtitles also as `docs/video/advisor_briefing.srt`), to prepare the student to explain the project to Dr. Behzad. Seven chapters: the one-breath pitch; the idea (problem, why tubes, the suspicion and the 68% no-picture hint, the three kinds of test, the two models, the two fixes); the data puzzle (NIH 112,120 images, RANZCR 30,083 labelled copies, fingerprint matching); progress (the 11-step table, 753 eligible patients against 120 needed, $0 spent); the student's decisions; likely questions with answers; and the open due-date question. The "what the other sessions are doing" part of the source message was left out as not relevant to the meeting.
+- The video engine is now shared: `docs/video/videokit.py` holds the drawing helpers and the build code, and `make_explainer.py` and `make_briefing.py` hold each video's scenes. The fingerprint picture is a simplified 16 x 16 illustration made from a real NIH film, labelled as such; the explainer video itself was not changed.
+- Money: $0.
+- Updated the same day with the results already in hand: the matching trial run (565 of 565 simulated copies matched correctly, 0 wrong, 30 sourceless copies left unmatched; from the end-to-end test above), the Kaggle size check (200 of 200 sampled RANZCR images have an NIH original size), about 600 automatic checks (was 570), and "the software works on real X-rays" (Qwen answers cleanly; MedGemma's input and MedSigLIP checked) in place of "the AIs run correctly". Changed scenes: data, puzzle, step table, good news, results answer. Now about 8.3 minutes; rebuilt with `docs/video/make_briefing.py`.
+- Wording fix on the puzzle narration: "a full trial run ... the same way the competition made its images" became "a trial run ... imitating the way the competition made its images", plus "the real images may differ a little, so the real run checks this again". Reason: the trial used 1,510 NIH images with simulated copies (JPEG quality 95 assumed; the real RANZCR conversion settings are unknown), so it supports the method but does not prove the real-data match rate. Rebuilt; 8.4 minutes.

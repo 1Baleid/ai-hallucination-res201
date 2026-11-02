@@ -1,0 +1,287 @@
+% references_methods.bib: entries cited by Sections 3-4 and Appendix B (and the works the
+% introduction shares with them: Tang et al., Wang et al., Kalai et al., Whitehead et al.,
+% Lotfinia et al., CCD, the MedGemma and Qwen reports). Every work is in exactly one of
+% references.bib and this file; scripts/build_report.py merges the two.
+% Keys follow firstauthorYEARfirstword in lower case; a leading article (A, The) is skipped.
+% Titles and author lists of the arXiv, PMC and Crossref records were checked on 2026-11-02;
+% entries that could not be checked carry a TODO note in their note field.
+
+@inproceedings{wang2017chestxray8,
+  author        = {Wang, Xiaosong and Peng, Yifan and Lu, Le and Lu, Zhiyong and Bagheri, Mohammadhadi and Summers, Ronald M.},
+  title         = {{ChestX-ray8}: Hospital-Scale Chest {X}-Ray Database and Benchmarks on Weakly-Supervised Classification and Localization of Common Thorax Diseases},
+  booktitle     = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages         = {2097--2106},
+  year          = {2017},
+  doi           = {10.1109/CVPR.2017.369},
+  eprint        = {1705.02315},
+  archivePrefix = {arXiv}
+}
+
+@misc{nihcc2017chestxray,
+  author       = {{NIH Clinical Center}},
+  title        = {{ChestX-ray NIHCC}: {NIH} Chest {X}-ray Dataset of 14 Common Thorax Disease Categories},
+  year         = {2017},
+  howpublished = {\url{https://nihcc.app.box.com/v/ChestXray-NIHCC}},
+  note         = {Public release of ChestX-ray14 (NIH download site); images read from the Kaggle mirror nih-chest-xrays/data. [[TODO: date accessed]]}
+}
+
+@article{tang2021clip,
+  author  = {Tang, Jennifer S. N. and Seah, Jarrel C. Y. and Zia, Adil and Gajera, Jay and Schlegel, Richard N. and Wong, Aaron J. N. and Gai, Dayu and Su, Shu and Bose, Tony and Kok, Marcus L. and Jarema, Alex and Harisis, George N. and Cheng, Chris-Tin and Kavnoudias, Helen and Wang, Wayland and Stein, Anouk and Shih, George and Gaillard, Frank and Dixon, Andrew and Law, Meng},
+  title   = {{CLiP}, catheter and line position dataset},
+  journal = {Scientific Data},
+  volume  = {8},
+  number  = {1},
+  pages   = {285},
+  year    = {2021},
+  doi     = {10.1038/s41597-021-01066-8},
+  url     = {https://www.nature.com/articles/s41597-021-01066-8},
+  note    = {PMC8553862. Methods: 43 labellers (radiologists, radiology trainees, hospital medical officers); all tracheostomy tubes labelled in the ``ETT normal'' category; about 30\% double-labelled; 5100 consensus labels re-reviewed with about 15\% discrepancies; 30,083 radiographs of 3791 patients}
+}
+
+@misc{ranzcr2021ranzcr,
+  author       = {{Royal Australian and New Zealand College of Radiologists}},
+  title        = {{RANZCR CLiP} -- Catheter and Line Position Challenge},
+  year         = {2021},
+  howpublished = {Kaggle competition \texttt{ranzcr-clip-catheter-line-classification}, \url{https://www.kaggle.com/competitions/ranzcr-clip-catheter-line-classification}},
+  note         = {Competition rules, Section 7 (archived 2021 copy read 2026-10-12). [[TODO: date of the live Rules-tab check]]}
+}
+
+@misc{alldataareext2021first,
+  author       = {{All Data Are Ext team}},
+  title        = {1st Place Solution},
+  year         = {2021},
+  howpublished = {Kaggle write-up, {RANZCR CLiP} competition (discussion 226633), \url{https://www.kaggle.com/competitions/ranzcr-clip-catheter-line-classification/writeups/all-data-are-ext-1st-place-solution}},
+  note         = {Posted 19 March 2021 (search-index date). Page title and URLs checked 2026-11-02; the body is rendered by JavaScript and could not be read, and archived copies hold no body. Search-index snippets (not read directly) say the team filtered NIH ChestX-ray14 images for tubes and used the imagehash library to find duplicates of the RANZCR training images, keeping each patient in one fold; the write-up thanks teammates haqishen and garybios. [[TODO: confirm the team members and the hashing statement in a browser]]}
+}
+
+@mastersthesis{zauner2010implementation,
+  author = {Zauner, Christoph},
+  title  = {Implementation and Benchmarking of Perceptual Image Hash Functions},
+  school = {Upper Austria University of Applied Sciences, Hagenberg Campus},
+  year   = {2010}
+}
+
+@article{otsu1979threshold,
+  author  = {Otsu, Nobuyuki},
+  title   = {A Threshold Selection Method from Gray-Level Histograms},
+  journal = {IEEE Transactions on Systems, Man, and Cybernetics},
+  volume  = {9},
+  number  = {1},
+  pages   = {62--66},
+  year    = {1979},
+  doi     = {10.1109/TSMC.1979.4310076}
+}
+
+@article{cohen1960coefficient,
+  author  = {Cohen, Jacob},
+  title   = {A Coefficient of Agreement for Nominal Scales},
+  journal = {Educational and Psychological Measurement},
+  volume  = {20},
+  number  = {1},
+  pages   = {37--46},
+  year    = {1960},
+  doi     = {10.1177/001316446002000104}
+}
+
+@misc{sellergren2025medgemma,
+  author        = {Sellergren, Andrew and Kazemzadeh, Sahar and Jaroensri, Tiam and Kiraly, Atilla and Traverse, Madeleine and Kohlberger, Timo and Xu, Shawn and Jamil, Fayaz and Hughes, C{\'\i}an and Lau, Charles and others},
+  title         = {{MedGemma} Technical Report},
+  year          = {2025},
+  eprint        = {2507.05201},
+  archivePrefix = {arXiv},
+  note          = {arXiv:2507.05201 (81 authors). Describes MedGemma and MedSigLIP; model card \url{https://huggingface.co/google/medsiglip-448}}
+}
+
+@misc{sellergren2026medgemma,
+  author        = {Sellergren, Andrew and Gao, Chufan and Mahvar, Fereshteh and Kohlberger, Timo and Jamil, Fayaz and Traverse, Madeleine and Tono, Alberto and Sadjad, Bashir and Yang, Lin and Lau, Charles and others},
+  title         = {{MedGemma} 1.5 Technical Report},
+  year          = {2026},
+  eprint        = {2604.05081},
+  archivePrefix = {arXiv},
+  note          = {arXiv:2604.05081 (42 authors), read 2026-10-12 together with the model card \url{https://huggingface.co/google/medgemma-1.5-4b-it}}
+}
+
+@misc{bai2025qwen3vl,
+  author        = {Bai, Shuai and Cai, Yuxuan and Chen, Ruizhe and Chen, Keqin and Chen, Xionghui and Cheng, Zesen and Deng, Lianghao and Ding, Wei and Gao, Chang and Ge, Chunjiang and others},
+  title         = {{Qwen3-VL} Technical Report},
+  year          = {2025},
+  eprint        = {2511.21631},
+  archivePrefix = {arXiv},
+  note          = {arXiv:2511.21631 (64 authors); model card \url{https://huggingface.co/Qwen/Qwen3-VL-2B-Instruct} (Apache-2.0)}
+}
+
+@misc{stanfordaimi2026chexone,
+  author       = {{Stanford AIMI}},
+  title        = {{CheXOne}},
+  year         = {2026},
+  howpublished = {Hugging Face model card, \url{https://huggingface.co/StanfordAIMI/CheXOne}},
+  note         = {Licence CC BY-NC 4.0 on the card (read 2026-10-12); the paper is zhang2026reasoning}
+}
+
+@misc{zhang2026reasoning,
+  author        = {Zhang, Yabin and Wang, Chong and Gao, Yunhe and Liu, Jiaming and Varma, Maya and Xu, Justin and Ostmeier, Sophie and Long, Jin and Gatidis, Sergios and Dehkharghani, Seena and others},
+  title         = {A Reasoning-Enabled Vision-Language Foundation Model for Chest {X}-ray Interpretation},
+  year          = {2026},
+  eprint        = {2604.00493},
+  archivePrefix = {arXiv},
+  note          = {arXiv:2604.00493 (22 authors); the CheXOne paper, CC BY-NC-ND 4.0; training sources listed in Section 4.1}
+}
+
+@misc{bai2025qwen25vl,
+  author        = {Bai, Shuai and Chen, Keqin and Liu, Xuejing and Wang, Jialin and Ge, Wenbin and others},
+  title         = {{Qwen2.5-VL} Technical Report},
+  year          = {2025},
+  eprint        = {2502.13923},
+  archivePrefix = {arXiv},
+  note          = {arXiv:2502.13923 (27 authors)}
+}
+
+@misc{lotfinia2026vision,
+  author        = {Lotfinia, Mahshad and Ziegelmayer, Sebastian and Adams, Lisa and Nguyen, Tri-Thien and Truhn, Daniel and Maier, Andreas and Tayebi Arasteh, Soroosh},
+  title         = {Vision-language models for chest radiography do not always need the image},
+  year          = {2026},
+  eprint        = {2606.17710},
+  archivePrefix = {arXiv},
+  url           = {https://arxiv.org/abs/2606.17710},
+  note          = {arXiv preprint arXiv:2606.17710, version 3 (1 October 2026); code \url{https://github.com/mahshadlotfinia/causal} (MIT); P0 follows the default template of build\_prompt() in data\_loader/build\_utils.py}
+}
+
+@misc{kalai2025why,
+  author        = {Kalai, Adam Tauman and Nachum, Ofir and Vempala, Santosh S. and Zhang, Edwin},
+  title         = {Why Language Models Hallucinate},
+  year          = {2025},
+  eprint        = {2509.04664},
+  archivePrefix = {arXiv},
+  note          = {arXiv:2509.04664, version 1 (4 September 2025); the confidence-target instruction is in Section 4.2}
+}
+
+@article{kalai2026evaluating,
+  author  = {Kalai, Adam Tauman and Nachum, Ofir and Vempala, Santosh S. and Zhang, Edwin},
+  title   = {Evaluating large language models for accuracy incentivizes hallucinations},
+  journal = {Nature},
+  volume  = {653},
+  number  = {8116},
+  pages   = {1047--1051},
+  year    = {2026},
+  doi     = {10.1038/s41586-026-10549-w},
+  url     = {https://www.nature.com/articles/s41586-026-10549-w},
+  note    = {Published online 22 April 2026; preprint arXiv:2509.04664 (kalai2025why)}
+}
+
+@inproceedings{whitehead2022reliable,
+  author        = {Whitehead, Spencer and Petryk, Suzanne and Shakib, Vedaad and Gonzalez, Joseph and Darrell, Trevor and Rohrbach, Anna and Rohrbach, Marcus},
+  title         = {Reliable Visual Question Answering: Abstain Rather Than Answer Incorrectly},
+  booktitle     = {Computer Vision -- {ECCV} 2022},
+  series        = {Lecture Notes in Computer Science},
+  pages         = {148--166},
+  publisher     = {Springer, Cham},
+  year          = {2022},
+  doi           = {10.1007/978-3-031-20059-5_9},
+  eprint        = {2204.13631},
+  archivePrefix = {arXiv},
+  note          = {Part XXXVI (LNCS volume number not verified); Effective Reliability, Eq. 6}
+}
+
+@article{hanley1982meaning,
+  author  = {Hanley, James A. and McNeil, Barbara J.},
+  title   = {The Meaning and Use of the Area under a Receiver Operating Characteristic ({ROC}) Curve},
+  journal = {Radiology},
+  volume  = {143},
+  number  = {1},
+  pages   = {29--36},
+  year    = {1982},
+  doi     = {10.1148/radiology.143.1.7063747}
+}
+
+@article{youden1950index,
+  author  = {Youden, W. J.},
+  title   = {Index for Rating Diagnostic Tests},
+  journal = {Cancer},
+  volume  = {3},
+  number  = {1},
+  pages   = {32--35},
+  year    = {1950},
+  doi     = {10.1002/1097-0142(1950)3:1<32::AID-CNCR2820030106>3.0.CO;2-3}
+}
+
+@inproceedings{zhang2026ccd,
+  author        = {Zhang, Xi and Meng, Zaiqiao and Lever, Jake and Ho, Edmond S. L.},
+  title         = {{CCD}: Mitigating Hallucinations in Radiology {MLLMs} via Clinical Contrastive Decoding},
+  booktitle     = {Findings of the Association for Computational Linguistics: ACL 2026},
+  year          = {2026},
+  url           = {https://aclanthology.org/2026.findings-acl.1755/},
+  eprint        = {2509.23379},
+  archivePrefix = {arXiv},
+  note          = {arXiv:2509.23379; code \url{https://github.com/X-iZhang/CCD} (MIT)}
+}
+
+@article{wilson1927probable,
+  author  = {Wilson, Edwin B.},
+  title   = {Probable Inference, the Law of Succession, and Statistical Inference},
+  journal = {Journal of the American Statistical Association},
+  volume  = {22},
+  number  = {158},
+  pages   = {209--212},
+  year    = {1927},
+  doi     = {10.1080/01621459.1927.10502953}
+}
+
+@article{efron1987better,
+  author  = {Efron, Bradley},
+  title   = {Better Bootstrap Confidence Intervals},
+  journal = {Journal of the American Statistical Association},
+  volume  = {82},
+  number  = {397},
+  pages   = {171--185},
+  year    = {1987},
+  doi     = {10.1080/01621459.1987.10478410}
+}
+
+@book{davison1997bootstrap,
+  author    = {Davison, A. C. and Hinkley, D. V.},
+  title     = {Bootstrap Methods and their Application},
+  publisher = {Cambridge University Press},
+  address   = {Cambridge},
+  year      = {1997},
+  doi       = {10.1017/CBO9780511802843}
+}
+
+@article{mcnemar1947note,
+  author  = {McNemar, Quinn},
+  title   = {Note on the Sampling Error of the Difference between Correlated Proportions or Percentages},
+  journal = {Psychometrika},
+  volume  = {12},
+  number  = {2},
+  pages   = {153--157},
+  year    = {1947},
+  doi     = {10.1007/BF02295996}
+}
+
+@article{holm1979simple,
+  author  = {Holm, Sture},
+  title   = {A Simple Sequentially Rejective Multiple Test Procedure},
+  journal = {Scandinavian Journal of Statistics},
+  volume  = {6},
+  number  = {2},
+  pages   = {65--70},
+  year    = {1979}
+}
+
+@book{kish1965survey,
+  author    = {Kish, Leslie},
+  title     = {Survey Sampling},
+  publisher = {John Wiley \& Sons},
+  address   = {New York},
+  year      = {1965}
+}
+
+@article{tiu2022expert,
+  author  = {Tiu, Ekin and Talius, Ellie and Patel, Pujan and Langlotz, Curtis P. and Ng, Andrew Y. and Rajpurkar, Pranav},
+  title   = {Expert-level detection of pathologies from unannotated chest {X}-ray images via self-supervised learning},
+  journal = {Nature Biomedical Engineering},
+  volume  = {6},
+  number  = {12},
+  pages   = {1399--1406},
+  year    = {2022},
+  doi     = {10.1038/s41551-022-00936-9}
+}

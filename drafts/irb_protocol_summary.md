@@ -4,7 +4,7 @@ Draft 2026-10-12 (revised after an ethics review the same evening) for the stude
 
 **Title**: Benchmarking and Mitigating Object Hallucination in Multimodal Large Language Models Using Synthetic and Real Visual Data (RES 201 component; umbrella project "Evaluating VLMs/LLMs Hallucination in Domain-Specific Tasks", SDAIA-KFUPM JRCAI).
 
-**Student**: [NAME], [ID], Information and Computer Science. **Supervisor and PI of record**: Dr. Muzammil Behzad, ICS. **Period**: 13 October 2026 to [END], with a possible later training stage.
+**Student**: [NAME], [ID], Information and Computer Science. **Course supervisor**: Dr. Muzammil Behzad, ICS. **Period**: [START] to [END], with a possible later training stage.
 
 **Purpose**: to measure how often small open vision-language models (2-4 billion parameters) report a medical device (an endotracheal tube) that is not present on a chest radiograph, and whether two training-free methods (detector-gated answers; retrieval of similar labelled cases) reduce such errors.
 
@@ -15,7 +15,7 @@ No identifiable information, no hospital records, no images outside these releas
 
 **Procedures**: (1) matching the two public releases of the same radiographs by image content (dimensions and perceptual hashing), which is the only linkage in the study; (2) automated inference by open-weight models on a rented cloud machine that holds only the public NIH images and prompt text; (3) the student's own non-clinical reading of about 300 images to check whether a device is visible; this reading flags ambiguous items, excludes label-image disagreements after a matching re-check, and is reported as agreement with the published labels; (4) statistical analysis. No patients are contacted; no clinical decisions are made or implied; no new data are collected from human participants in this stage; outputs are research measurements, not medical interpretations.
 
-**Planned start**: 13 October 2026 (automated analysis of public de-identified images only). The student's own reading sessions will pause if the office objects.
+**Planned start**: [DATE] (automated analysis of public de-identified images only). The student's own reading sessions will pause if the office objects.
 
 **Possible later elements (the office will be notified before they start)**: a short blinded image reading by a lab member or a clinician for label-quality checks; fine-tuning of models on the same public images.
 
@@ -29,4 +29,4 @@ No identifiable information, no hospital records, no images outside these releas
 
 **Request**: a determination that this activity is not research on a human subject under the Law of Ethics of Research on Living Creatures or, failing that, expedited review under the NCBE Implementing Regulations (v3), Article 10.19 (minimal risk; previously collected, non-identifying records), with exemption from periodic follow-up under Article 10.33 (publicly available, non-identifying data).
 
-Contact: [NAME], [EMAIL], [PHONE]; supervisor muzammil.behzad@kfupm.edu.sa.
+Contact: [NAME], [EMAIL], [PHONE].

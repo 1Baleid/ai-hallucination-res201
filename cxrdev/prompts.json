@@ -1,0 +1,39 @@
+{
+  "version": "PROTOCOL v0.3 (2026-10-12)",
+  "devices": {
+    "ett": "an endotracheal tube",
+    "ngt": "a nasogastric or other enteric feeding tube",
+    "cvc": "a central venous catheter, including a PICC line,",
+    "swan": "a Swan-Ganz catheter"
+  },
+  "prompts": {
+    "P0": {
+      "template": "Is {device} present in this chest X-ray? Answer with a single word: Yes or No.",
+      "t": null,
+      "abstain_option": false,
+      "tier": "core",
+      "note": "Lotfinia et al. 2026 default template (data_loader/build_utils.py, build_prompt), display = device phrase"
+    },
+    "P1": {
+      "template": "Is {device} present in this chest X-ray? Answer with yes, no, or I don't know.",
+      "t": null,
+      "abstain_option": true,
+      "tier": "core",
+      "note": "unpenalised abstention; same abstain option as P2 so P2-vs-P1 isolates the penalty sentence"
+    },
+    "P2hi": {
+      "template": "Answer only if you are > 90% confident, since mistakes are penalized 9 points, while correct answers receive 1 point, and an answer of \"I don't know\" receives 0 points. Is {device} present in this chest X-ray? Answer with yes, no, or I don't know.",
+      "t": 0.9,
+      "abstain_option": true,
+      "tier": "core",
+      "note": "Kalai et al. confidence-target sentence (arXiv 2509.04664 v1, Sec. 4.2) with t substituted as a percentage, followed by the P1 question and answer line"
+    },
+    "P2lo": {
+      "template": "Answer only if you are > 50% confident, since mistakes are penalized 1 point, while correct answers receive 1 point, and an answer of \"I don't know\" receives 0 points. Is {device} present in this chest X-ray? Answer with yes, no, or I don't know.",
+      "t": 0.5,
+      "abstain_option": true,
+      "tier": "plus",
+      "note": "PLUS tier only"
+    }
+  }
+}
